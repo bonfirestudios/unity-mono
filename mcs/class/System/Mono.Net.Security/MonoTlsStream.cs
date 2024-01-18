@@ -92,11 +92,11 @@ namespace Mono.Net.Security
 
 			settings = request.TlsSettings;
 
-			if (settings == null && request.ServerCertificateValidationCallback != null)
-			{
+			if (settings == null)
 				settings = MonoTlsSettings.CopyDefaultSettings ();
+				
+			if (settings.RemoteCertificateValidationCallback == null)
 				settings.RemoteCertificateValidationCallback = MNS.Private.CallbackHelpers.PublicToMono(request.ServerCertificateValidationCallback);
-			}
 
 			provider = request.TlsProvider ?? MonoTlsProviderFactory.GetProviderInternal ();
 			status = WebExceptionStatus.SecureChannelFailure;
