@@ -197,7 +197,8 @@ if ($artifact)
 	# embedruntimes directory setup
 	print(">>> Creating embedruntimes directory : $embedDirArchDestination\n");
 
-	my $msvc_base = $arch32 ? '$ENV{VCINSTALLDIR}/Tools/MSVC/14.38.33130/bin/Hostx64/x86' : '$ENV{VCINSTALLDIR}/Tools/MSVC/14.38.33130/bin/Hostx64/x64';
+	my $msvc_bin_base = "$ENV{VCINSTALLDIR}/Tools/MSVC/14.38.33130/bin/Hostx64";
+	my $msvc_base = $arch32 ? "$msvc_bin_base/x86" : "$msvc_bin_base/x64";
 	my $asan_arch = $arch32 ? 'i386' : 'x86_64';
 
 	copy("$monoprefix/bin/mono-2.0-bdwgc.dll", "$embedDirArchDestination/.") or die ("failed copying mono-2.0-bdwgc.dll\n");
