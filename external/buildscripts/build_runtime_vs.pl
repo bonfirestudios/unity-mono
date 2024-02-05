@@ -44,6 +44,11 @@ sub CompileVCProj
 
 	if (!(-e -x $msbuild))
 	{
+		$msbuild = "$ENV{VCINSTALLDIR}/../MSBuild/Current/Bin/MSBuild.exe";
+	}
+
+	if (!(-e -x $msbuild))
+	{
 		print (">>> Unable to find executable MSBuild for vs19 at: $msbuild\nFalling back to vs17\n");
 		$msbuild = "$vsInstallRoot/2017/Professional/MSBuild/15.0/Bin/MSBuild.exe";
 	}
@@ -51,7 +56,7 @@ sub CompileVCProj
     $config = $debug ? "Debug" : "Release";
 	my $arch = $arch32 ? "Win32" : "x64";
 	my $target = $clean ? "/t:Clean,Build" :"/t:Build";
-	my $properties = "/p:Configuration=$config;Platform=$arch;MONO_TARGET_GC=$gc;MONO_USE_STATIC_C_RUNTIME=true";
+	my $properties = "/p:Configuration=$config;Platform=$arch;MONO_TARGET_GC=$gc;MONO_USE_STATIC_C_RUNTIME=true;MONO_ENABLE_ASAN=true;PlatformToolset=v143;VCToolsVersion=14.38.33130";
 
 	print (">>> $msbuild $properties $target $sln\n\n");
 	system($msbuild, $properties, $target, $sln) eq 0

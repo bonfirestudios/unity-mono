@@ -197,6 +197,9 @@ if ($artifact)
 	# embedruntimes directory setup
 	print(">>> Creating embedruntimes directory : $embedDirArchDestination\n");
 
+	my $msvc_base = $arch32 ? '$ENV{VCINSTALLDIR}/Tools/MSVC/14.38.33130/bin/Hostx64/x86' : '$ENV{VCINSTALLDIR}/Tools/MSVC/14.38.33130/bin/Hostx64/x64';
+	my $asan_arch = $arch32 ? 'i386' : 'x86_64';
+
 	copy("$monoprefix/bin/mono-2.0-bdwgc.dll", "$embedDirArchDestination/.") or die ("failed copying mono-2.0-bdwgc.dll\n");
 	copy("$monoprefix/bin/mono-2.0-bdwgc.pdb", "$embedDirArchDestination/.") or die ("failed copying mono-2.0-bdwgc.pdb\n");
 
@@ -205,6 +208,11 @@ if ($artifact)
 
 	copy("$monoprefix/bin/MonoPosixHelper.dll", "$embedDirArchDestination/.") or die ("failed copying MonoPosixHelper.dll\n");
 	copy("$monoprefix/bin/MonoPosixHelper.pdb", "$embedDirArchDestination/.") or die ("failed copying MonoPosixHelper.pdb\n");
+
+	copy("$msvc_base/clang_rt.asan_dbg_dynamic-$asan_arch.dll", "$embedDirArchDestination/.") or die ("failed copying clang_rt.asan_dbg_dynamic-$asan_arch.dll\n");
+	copy("$msvc_base/clang_rt.asan_dbg_dynamic-$asan_arch.pdb", "$embedDirArchDestination/.") or die ("failed copying clang_rt.asan_dbg_dynamic-$asan_arch.pdb\n");
+	copy("$msvc_base/clang_rt.asan_dynamic-$asan_arch.dll", "$embedDirArchDestination/.") or die ("failed copying clang_rt.asan_dynamic-$asan_arch.dll\n");
+	copy("$msvc_base/clang_rt.asan_dynamic-$asan_arch.pdb", "$embedDirArchDestination/.") or die ("failed copying clang_rt.asan_dynamic-$asan_arch.pdb\n");
 
 	# monodistribution directory setup
 	print(">>> Creating monodistribution directory\n");
@@ -221,6 +229,10 @@ if ($artifact)
 	copy("$monoprefix/bin/MonoPosixHelper.dll", "$distDirArchBin/.") or die ("failed copying MonoPosixHelper.dll\n");
 	copy("$monoprefix/bin/MonoPosixHelper.pdb", "$distDirArchBin/.") or die ("failed copying MonoPosixHelper.pdb\n");
 
+	copy("$msvc_base/clang_rt.asan_dbg_dynamic-$asan_arch.dll", "$distDirArchBin/.") or die ("failed copying clang_rt.asan_dbg_dynamic-$asan_arch.dll\n");
+	copy("$msvc_base/clang_rt.asan_dbg_dynamic-$asan_arch.pdb", "$distDirArchBin/.") or die ("failed copying clang_rt.asan_dbg_dynamic-$asan_arch.pdb\n");
+	copy("$msvc_base/clang_rt.asan_dynamic-$asan_arch.dll", "$distDirArchBin/.") or die ("failed copying clang_rt.asan_dynamic-$asan_arch.dll\n");
+	copy("$msvc_base/clang_rt.asan_dynamic-$asan_arch.pdb", "$distDirArchBin/.") or die ("failed copying clang_rt.asan_dynamic-$asan_arch.pdb\n");
 
 	# Output version information
 	print(">>> Creating version file : $versionsOutputFile\n");

@@ -65,10 +65,11 @@ monosgen_sources = \
 
 libmonosgen_la_SOURCES = $(monosgen_sources)
 libmonosgen_la_CFLAGS = $(SGEN_DEFINES)
+sgen-gc.$(OBJEXT) : CFLAGS = $(filter-out -fsanitize=address, $(SGEN_DEFINES))
 
 endif # !ENABLE_MSVC_ONLY
 
-CFLAGS := $(filter-out @CXX_REMOVE_CFLAGS@, @CFLAGS@) @CXX_ADD_CFLAGS@
+CFLAGS := $(filter-out @CXX_REMOVE_CFLAGS@ -fsanitize=address, @CFLAGS@) @CXX_ADD_CFLAGS@
 
 if ENABLE_MSVC_ONLY
 

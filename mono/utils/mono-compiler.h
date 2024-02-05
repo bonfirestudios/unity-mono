@@ -143,7 +143,11 @@ typedef ptrdiff_t ssize_t;
 
 /* Used to tell Clang's AddressSanitizer to turn off instrumentation for a certain function */
 #if MONO_HAS_CLANG_ADDRESS_SANITIZER
+#ifdef _MSC_VER
+#define MONO_NO_SANITIZE_ADDRESS __declspec(no_sanitize_address)
+#else
 #define MONO_NO_SANITIZE_ADDRESS __attribute__ ((no_sanitize("address")))
+#endif
 #else
 #define MONO_NO_SANITIZE_ADDRESS
 #endif

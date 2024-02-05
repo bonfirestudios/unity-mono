@@ -9,6 +9,10 @@
     <ClCompile Include="$(MonoSourceLocation)\external\bdwgc\extra\gc.c">
       <ExcludedFromBuild>$(ExcludeBoehmGCFromBuild)</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="$(MonoSourceLocation)\external\bdwgc\extra\msvc_gc_no_asan.c">
+      <ExcludedFromBuild>$(ExcludeBoehmGCFromBuild)</ExcludedFromBuild>
+      <EnableASAN>false</EnableASAN>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MonoSourceLocation)\external\bdwgc\include\gc.h">

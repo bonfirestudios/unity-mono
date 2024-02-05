@@ -1088,12 +1088,13 @@ if ($build)
 
 		if ($debug)
 		{
-			$ENV{CFLAGS} = "$archflags -g -O0";
+			$ENV{CFLAGS} = "$archflags -g -O0 -fsanitize=address";
 		}
 		else
 		{
-			$ENV{CFLAGS} = "$archflags -Os";  #optimize for size
+			$ENV{CFLAGS} = "$archflags -Os -fsanitize=address";  #optimize for size
 		}		
+		$ENV{LDFLAGS} = "-fsanitize=address";
 
 		if($ENV{UNITY_THISISABUILDMACHINE} || $ENV{UNITY_USE_LINUX_SDK})
 		{

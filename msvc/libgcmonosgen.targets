@@ -43,6 +43,7 @@
     </ClCompile>
     <ClCompile Include="$(MonoSourceLocation)\mono\sgen\sgen-gc.c">
       <ExcludedFromBuild>$(ExcludeSGenGCFromBuild)</ExcludedFromBuild>
+      <EnableASAN>false</EnableASAN>
     </ClCompile>
     <ClInclude Include="$(MonoSourceLocation)\mono\sgen\sgen-gc.h">
       <ExcludedFromBuild>$(ExcludeSGenGCFromBuild)</ExcludedFromBuild>

@@ -54,6 +54,7 @@
     </CustomBuildStep>
     <ClCompile Include="$(MonoSourceLocation)\mono\mini\exceptions-amd64.c">
       <ExcludedFromBuild>$(ExcludeFromWindows32Build)</ExcludedFromBuild>
+      <EnableASAN>false</EnableASAN>
     </ClCompile>
     <ClCompile Include="$(MonoSourceLocation)\mono\mini\tramp-amd64.c">
       <ExcludedFromBuild>$(ExcludeFromWindows32Build)</ExcludedFromBuild>
