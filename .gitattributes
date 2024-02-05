@@ -11,6 +11,7 @@ mkinstalldirs	crlf=input
 .gitattributes	crlf=input
 *akefile*	crlf=input
 m4/mono-output.m4	crlf=input
+external/buildscripts/bee	crlf=input
 
 # ensure native line endings on checkout
 *.c	crlf
