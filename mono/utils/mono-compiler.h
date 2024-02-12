@@ -134,6 +134,11 @@ typedef ptrdiff_t ssize_t;
 #define MONO_HAS_CLANG_ADDRESS_SANITIZER 0
 #endif
 
+#if !MONO_HAS_CLANG_ADDRESS_SANITIZER && defined(_MSC_VER) && defined(__SANITIZE_ADDRESS__)
+#undef MONO_HAS_CLANG_ADDRESS_SANITIZER
+#define MONO_HAS_CLANG_ADDRESS_SANITIZER 1
+#endif
+
 /* Used to tell Clang's ThreadSanitizer to not report data races that occur within a certain function */
 #if MONO_HAS_CLANG_THREAD_SANITIZER
 #define MONO_NO_SANITIZE_THREAD __attribute__ ((no_sanitize("thread")))

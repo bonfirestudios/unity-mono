@@ -400,6 +400,15 @@ mono_thread_platform_create_thread (MonoThreadStart thread_fn, gpointer thread_d
 	if (stack_size && *stack_size)
 		set_stack_size = *stack_size;
 
+	// Increase stack size when address sanitizer is being used
+	// to account for extra stack pressure.
+#if MONO_HAS_CLANG_ADDRESS_SANITIZER
+	if (set_stack_size)
+		set_stack_size *= 2;
+	else
+		set_stack_size = 2 * (1024 * 1024);
+#endif
+
 	result = CreateThread (NULL, set_stack_size, (LPTHREAD_START_ROUTINE) thread_fn, thread_data, 0, &thread_id);
 	if (!result)
 		return FALSE;
