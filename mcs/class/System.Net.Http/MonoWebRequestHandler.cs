@@ -524,6 +524,10 @@ namespace System.Net.Http
 			} catch (WebException we) {
 				if (we.Status != WebExceptionStatus.RequestCanceled)
 					throw new HttpRequestException ("An error occurred while sending the request", we);
+				// BONFIRE: Claude edit, HttpRequestException instead of NullReferenceException later
+				if (wresponse == null)
+					throw new HttpRequestException ("An error occurred while sending the request", we);
+				// BONFIRE: End Claude edit
 			} catch (System.IO.IOException ex) {
 				throw new HttpRequestException ("An error occurred while sending the request", ex);
 			}
